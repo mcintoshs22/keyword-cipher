@@ -95,6 +95,12 @@ function doEncipher() {
 		if (i%5 == 0) {
 				encipheredOutput += " ";
 		}
+		
+		// ignore punctuation
+		if (input.charCodeAt(i) < 97 || input.charCodeAt(i) > 122) {
+			continue;
+		}
+		
 		encipheredOutput += cipherAlphabet[input.charCodeAt(i) - 97];
 	}
 	
@@ -135,6 +141,12 @@ function doDecipher() {
 		if (i%5 == 0) {
 				decipheredOutput += " ";
 		}
+		
+		// ignore punctuation
+		if (input.charCodeAt(i) < 97 || input.charCodeAt(i) > 122) {
+			continue;
+		}
+		
 		decipheredOutput += alphabet[cipherAlphabet.indexOf(input.charAt(i))];
 	}
 
@@ -166,7 +178,7 @@ function doSwitch(id) {
 	
 	// find letters in input and replace with ciphertext letter
 	for (i = 0; i < input.length; i++) {
-		if (input.charAt(i) == letter) {	
+		if (input.charAt(i) == letter) {
 			if (newLetter.length == 0) {
 				decTextArray[i] = "*";
 			}
@@ -185,12 +197,17 @@ function doCipherTextBox(id) {
 	var input = document.getElementById("cryptinput").value;
 	var asterisks = [];
 
+	input = input.toLowerCase();
+
 	for (i = 0; i < input.length; i++) {
 		if (input.charAt(i) == " ") {
 			asterisks.push(" ");
 		}
 		else if (input.charAt(i) == "\n") {
 			asterisks.push("\n");
+		}
+		else if (input.charCodeAt(i) < 97 || input.charCodeAt(i) > 122) {
+			continue;
 		}
 		else {
 			asterisks.push("*");
